@@ -1,0 +1,125 @@
+<meta charset="UTF-8">
+<html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+  <head>
+    <title>Encriptador/Desencriptador</title>
+    <img src="logo.png" alt="Mi imagen" style="position: absolute; top: 20px; right:1800px; height:50px;">
+  </head>
+  <body style="background-color: #F3F5FC;">
+
+
+    
+
+    <div id="texto-y-botones">
+      <form>
+        
+        <textarea id="texto" name="texto" style="width: 577px; height:500px; top: 168px; left: 200px; position: absolute; border-radius: 50px; text-align: center;
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 32px;
+          line-height: 150%;
+          color: #0A3871;"  onclick="this.value=''";  placeholder="Escribe tu texto aquí"></textarea>
+
+        <button type="button" onclick="encriptar()" style="width: 328px; height: 67px; border-radius: 24px; padding: 24px; gap: 8px; background-color: darkblue ; color: white; position: absolute; bottom: 150px; margin-top:20px; left: 100;">Encriptar</button>
+
+        <button type="button" onclick="desencriptar()" style="width: 328px; height: 67px;left: 500px; border-radius: 24px; padding: 24px; gap: 8px; background-color: #D8DFE8; color: black; position: absolute; bottom: 150px; margin-top:20px ; ">Desencriptar </button>
+
+
+      </form> 
+      <div>
+      
+    </div>
+
+
+    </div >
+
+
+
+    <div id="resultado"style="width: 400px;
+  height: 944px;
+  left: 1000px;
+  top: 40px; position: absolute; background: #FFFFFF;
+  box-shadow: 0px 24px 32px -8px rgba(0, 0, 0, 0.08);
+  border-radius: 32px; width:800px; height: 900px; ">
+      <br>
+      <textarea id="resultado-texto"  readonly="true" style="border-color: darkblue; border-radius: 50px; width:800px; height:500px; font-family: 'Inter';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 32px;
+          line-height: 150%;
+          text-align: center;
+          color: #0A3871;" placeholder="   Aqui aparecera tu mensaje incriptado" ></textarea>
+
+          <img src="muñeco.jpg" alt="Mi imagen" style="position: absolute; top: 525px; left: 275px; height:250px;">
+
+           <button type="button" onclick="copiarResultado()" style="width: 328px; height: 67px;left: 250px; border-radius: 24px; padding: 24px; gap: 8px; background-color: #E5E7E9  ; color:black; position: absolute; bottom: 50px; margin-top:20px" ;>Copiar</button>
+    </div>
+    
+    <script>
+      const sustituciones = {
+        e: "enter",
+        i: "imes",
+        a: "ai",
+        o: "ober",
+        u: "ufat"
+      };
+
+      function encriptar() {
+        const texto = document.getElementById("texto").value;
+        const resultado = texto.split("").map(caracter => sustituciones[caracter] || caracter);
+        document.getElementById("resultado-texto").innerHTML = resultado.join("");
+      }
+
+      function desencriptar() {
+        const texto = document.getElementById("texto").value;
+        let resultado = "";
+        let i = 0;
+        while (i < texto.length) {
+          let caracter = texto[i];
+          if (texto.startsWith("enter", i)) {
+            caracter = "e";
+            i += 5;
+          } else if (texto.startsWith("imes", i)) {
+            caracter = "i";
+            i += 4;
+          } else if (texto.startsWith("ai", i)) {
+            caracter = "a";
+            i += 2;
+          } else if (texto.startsWith("ober", i)) {
+            caracter = "o";
+            i += 4;
+          } else if (texto.startsWith("ufat", i)) {
+            caracter = "u";
+            i += 4;
+          } else {
+            i += 1;
+          }
+          resultado += caracter;
+        }
+        document.getElementById("resultado-texto").innerHTML = resultado;
+      }
+
+      function copiarResultado() {
+        const resultado = document.getElementById("resultado-texto");
+        const seleccion = window.getSelection();
+        seleccion.removeAllRanges();
+        const rango = document.createRange();
+        rango.selectNodeContents(resultado);
+        seleccion.addRange(rango);
+        document.execCommand("copy");
+      }
+    </script>
+  </body>
+
+  <footer style="background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top:850px; width: 970px; border-radius: 45px;">
+  <p>Copyright 2022 / Rudwin Enrique Peñate Rivas</p>
+  <p>Challeng Alura Latam + Oracle Next Education</p>
+</footer>
+
+</html>
